@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "knex": "node --import tsx ./node_modules/.bin/knex",
+    "knex:migrate": "npm run knex -- migrate:latest",
+    "knex:rollback": "npm run knex -- migrate:rollback",
+    "knex:make": "npm run knex -- migrate:make"
   },
   "keywords": [],
   "author": "",
