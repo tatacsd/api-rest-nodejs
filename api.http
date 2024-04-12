@@ -4,9 +4,9 @@ POST http://localhost:3333/transactions
 Content-Type: application/json
 
 {
-    "title": "Event A",
+    "title": "Freelance",
     "amount": 100,
-    "type": "deposit"
+    "type": "withdraw",
 }
 
 ###
@@ -16,3 +16,8 @@ GET http://localhost:3333/transactions
 ###
 // Get a transaction by ID
 GET http://localhost:3333/transactions/dbfadfa0-71ed-4256-977e-8c94135ff186
+
+
+###
+// Get the account summary
+GET http://localhost:3333/transactions/summary
