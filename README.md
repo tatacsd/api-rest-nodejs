@@ -1,15 +1,15 @@
 # Functional Requirements
 
-- [ ] User can create a new transaction
+- [x] User can create a new transaction
 - [ ] user can get the summary of all transactions
-- [ ] User can list all transactions
-- [ ] User can see a specific transaction
+- [x] User can list all transactions
+- [x] User can see a specific transaction
 
 
 
 
 # Business Rules
-- [ ] The transaction can be two types: `income` or `expense`
+- [x] The transaction can be two types: `deposit` or `withdraw`
 - [ ] We need to identify the user in each transaction
 - [ ] The user can only see his transactions
 
