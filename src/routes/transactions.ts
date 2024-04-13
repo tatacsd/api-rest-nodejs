@@ -5,7 +5,10 @@ import crypto from "node:crypto";
 import { checkSessionIdExists } from "../middlewares/check-session-id-exists";
 
 export async function TransactionsRoutes(app: FastifyInstance) {
- 
+  // add global hook that will run before every route
+  app.addHook("preHandler", async (request, reply) => {
+    console.log(`[${request.method}] ${request.url}`);
+  });
 
   app.get(
     "/",
@@ -15,14 +18,13 @@ export async function TransactionsRoutes(app: FastifyInstance) {
     async (request, reply) => {
       const sessionId = request.cookies.sessionId;
 
-      const transactions = await knex("transactions").where({
-        session_id: sessionId,
-      }).select();
+      const transactions = await knex("transactions")
+        .where({
+          session_id: sessionId,
+        })
+        .select();
       console.log({ transactions });
       console.log({ sessionId });
-
-      const allTransactions = await knex("transactions").select("*");
-      console.log({ allTransactions });
 
       return reply.status(200).send({ transactions });
     }
@@ -43,7 +45,7 @@ export async function TransactionsRoutes(app: FastifyInstance) {
 
       const transaction = await knex("transactions")
         .select("*")
-        .where({ id , session_id: sessionId })
+        .where({ id, session_id: sessionId })
         .first();
 
       if (!transaction) {
@@ -79,7 +81,7 @@ export async function TransactionsRoutes(app: FastifyInstance) {
 
     const { amount, title, type } = createTransactionSchema.parse(request.body);
 
-    let {sessionId } = request.cookies;
+    let { sessionId } = request.cookies;
 
     if (!sessionId) {
       sessionId = crypto.randomUUID();
@@ -89,15 +91,12 @@ export async function TransactionsRoutes(app: FastifyInstance) {
       });
     }
 
-    const _transaction = await knex("transactions").insert({
+    await knex("transactions").insert({
       id: crypto.randomUUID(),
       title,
       amount: type === "deposit" ? amount : amount * -1,
       session_id: sessionId,
     });
-
-    console.log({ sessionId });
-    console.log({ _transaction });
 
     return reply.status(201).send();
   });
