@@ -8,7 +8,8 @@
     "knex": "node --import tsx ./node_modules/.bin/knex",
     "knex:migrate": "npm run knex -- migrate:latest",
     "knex:rollback": "npm run knex -- migrate:rollback",
-    "knex:make": "npm run knex -- migrate:make"
+    "knex:make": "npm run knex -- migrate:make",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,8 @@
   "devDependencies": {
     "@types/node": "^20.12.7",
     "tsx": "^4.7.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
   },
   "dependencies": {
     "@fastify/cookie": "^9.3.1",
